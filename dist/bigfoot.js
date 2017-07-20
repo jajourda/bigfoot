@@ -635,4 +635,157 @@
     };
   })(jQuery);
 
-}).call(this);
+}).call(this),
+    function(a) {
+        a("#nav-toggle").click(function(b) {
+            var c = a(".site-nav");
+            if (a(this).toggleClass("active"), c.hasClass("active")) {
+                c.css({
+                    "max-height": "0"
+                }).toggleClass("active inactive"); {
+                    var d = a(".submenu.active").addClass("reactivate");
+                    a(".submenu-deactivated").removeClass("submenu-deactivated")
+                }
+                setTimeout(function() {
+                    d.removeClass("active")
+                }, 700)
+            } else c.css({
+                "max-height": c.children(".nav-wrapper").outerHeight() + "px"
+            }).addClass("reactivating").toggleClass("active inactive"), a(".submenu.reactivate").removeClass("reactivate").addClass("active"), setTimeout(function() {
+                c.removeClass("reactivating")
+            }, 700);
+            return b.preventDefault(), !1
+        }), a(window).resize(function() {
+            var b = a(".site-nav.active");
+            0 !== b.length && b.css({
+                "max-height": b.children(".nav-wrapper").outerHeight() + "px"
+            })
+        }), a(document).on("click", ".disclosure-link", function(b) {
+            var c = a(this).closest(".nav-link"),
+                d = c.siblings(".submenu");
+            if (c.hasClass("active")) c.removeClass("active").addClass("submenu-deactivated"), a(".nav-link").removeClass("inactive"), a(".site-nav").removeClass("submenu-active"), d.addClass("submenu-deactivated").removeClass("active"), setTimeout(function() {
+                d.removeClass("submenu-deactivated")
+            }, 700);
+            else {
+                c.addClass("active").removeClass("submenu-deactivated"), c.parent().siblings().children(".nav-link").addClass("inactive").removeClass("submenu-deactivated"), a(".site-nav").removeClass("submenu-deactivated").addClass("submenu-active"), d.addClass("active").removeClass("submenu-deactivated");
+                var e = d.children().length;
+                if (4 > e) {
+                    var f = c.closest("ul").children().index(c.parent()).i;
+                    if (2 > f)
+                        for (i = 0; 3 - e > i; i++) d.children().last().after('<li class="menu-placeholder"><div class="nav-link menu-placeholder"></div<</li>'), a('<li class="menu-placeholder"><div class="nav-link menu-placeholder selected-item-placeholder"></div<</li>').insertBefore(d.children("li:nth-child(" + (f + 1) + ")"));
+                    else
+                        for (i = 0; 3 - e > i; i++) d.children().first().before('<li class="menu-placeholder"><div class="nav-link menu-placeholder"></div<</li>'), a('<li class="menu-placeholder"><div class="nav-link menu-placeholder selected-item-placeholder"></div<</li>').insertAfter(d.children("li:nth-child(" + f + ")"))
+                }
+            }
+            return b.preventDefault(), !1
+        })
+    }(jQuery),
+    function(a) {
+        a(document).ready(function() {
+            var b = '<aside class="bigfoot-footnote is-positioned-bottom" data-footnote-number="{{FOOTNOTENUM}}" data-footnote-style="{{BUTTON:data-footnote-style}}" data-footnote-identifier="{{FOOTNOTEID}}" alt="Footnote {{FOOTNOTENUM}}"> <div class="bigfoot-footnote__wrapper"> <div class="bigfoot-footnote__content"> {{FOOTNOTECONTENT}} </div></div> <div class="bigfoot-footnote__tooltip"></div> </aside>',
+                c = '<div class=\'bigfoot-footnote__container\'><button class="bigfoot-footnote__button" id="{{SUP:data-footnote-backlink-ref}}" data-footnote-style="default" data-footnote-number="{{FOOTNOTENUM}}" data-footnote-identifier="{{FOOTNOTEID}}" alt="See Footnote {{FOOTNOTENUM}}" rel="footnote" data-bigfoot-footnote="{{FOOTNOTECONTENT}}"> <svg class="bigfoot-footnote__button__circle" viewbox="0 0 6 6" preserveAspectRatio="xMinYMin"><circle r="3" cx="3" cy="3" fill="white"></circle></svg> <svg class="bigfoot-footnote__button__circle" viewbox="0 0 6 6" preserveAspectRatio="xMinYMin"><circle r="3" cx="3" cy="3" fill="white"></circle></svg> <svg class="bigfoot-footnote__button__circle" viewbox="0 0 6 6" preserveAspectRatio="xMinYMin"><circle r="3" cx="3" cy="3" fill="white"></circle></svg> </button></div>',
+                d = a.bigfoot({
+                    scope: ".bigfoot-active",
+                    numberResetSelector: ".demo-device-content",
+                    contentMarkup: b,
+                    buttonMarkup: c
+                });
+            d.addBreakpoint("<30em");
+            var e = a(".page-nav"),
+                f = function() {
+                    var b = a(this);
+                    b.hasClass("inactive") && b.toggleClass("inactive active").siblings().toggleClass("inactive active")
+                },
+                g = function(b, c) {
+                    var d = b ? a(b).offset().top - 10 : 0,
+                        e = a(window).scrollTop(),
+                        f = void 0 !== document.height ? document.height : document.body.offsetHeight,
+                        g = Math.max(Math.abs(500 * (e - d) / f), 200);
+                    a("body, html").animate({
+                        scrollTop: d
+                    }, g), c && setTimeout(function() {
+                        c()
+                    }, g)
+                },
+                h = function(b) {
+                    b && (a(this).blur(), b.preventDefault()), a(".page-nav-toggle, .page-nav").toggleClass("active")
+                },
+                i = function(b, c) {
+                    b.preventDefault(), d.close();
+                    var e = a(this),
+                        f = e.attr("href");
+                    "#demo" === f || "#styles" === f ? e.closest(".page-nav").length > 0 ? (e.blur(), h(), setTimeout(function() {
+                        g(!1, k)
+                    }, c || 300)) : g(!1, k) : e.closest(".page-nav").length > 0 ? (e.blur(), h(), "#project" === f ? setTimeout(function() {
+                        g()
+                    }, c || 300) : setTimeout(function() {
+                        g(f)
+                    }, c || 300)) : "#project" === f ? g(!1) : setTimeout(function() {
+                        g(f)
+                    }, c || 100)
+                },
+                j = function(b) {
+                    b.preventDefault();
+                    var c = a(this);
+                    c.toggleClass("active"), c.parent().siblings().children("a").toggleClass("active"), n()
+                },
+                k = function() {
+                    var b = a(".header-demo-hide");
+                    b.css("max-height", a(window).height() + "px"), a("#project").toggleClass("demo-active"), e.addClass("inactive superinactive"), d.updateSetting("appendPopoversTo", ".demo-footnote-container"), "bottom" === a(".style-button.active").attr("data-footnote-style") && d.updateSetting("positionContent", !1), setTimeout(function() {
+                        a(".demo-container, .demo-hide, body, .header-demo-hide").toggleClass("demo-active")
+                    }, 530)
+                },
+                l = function(b) {
+                    b && (a(this).blur(), b.preventDefault()), g(!1, function() {
+                        var b = a(".header-demo-hide");
+                        b.css("max-height", a(window).height() + "px").toggleClass("demo-active"), d.updateSetting("appendPopoversTo", void 0), d.updateSetting("positionContent", !0), e.hasClass("active") && h(), setTimeout(function() {
+                            a(".bigfoot-project, .demo-container, .demo-hide, body, #project").toggleClass("demo-active"), setTimeout(function() {
+                                e.removeClass("superinactive").addClass("inactive")
+                            }, 100), setTimeout(function() {
+                                b.css("max-height", "")
+                            }, 300)
+                        }, 480)
+                    })
+                },
+                m = function() {
+                    var b = a("#project"),
+                        c = (window.innerHeight + 60 - b.height()) / 2;
+                    b.css({
+                        "margin-top": Math.max(c, 0) + "px",
+                        "margin-bottom": Math.max(c, 0) + "px"
+                    })
+                },
+                n = function() {
+                    var b = a(".demo-device-content"),
+                        c = a(".demo-device-bigfoot");
+                    b.toggleClass("active"), c.toggleClass("active"), setTimeout(function() {
+                        c.toggleClass("active")
+                    }, 600)
+                },
+                o = function() {
+                    var b = a(window).scrollTop(),
+                        c = a(window).height() / 2;
+                    b > c && e.hasClass("inactive") ? e.removeClass("inactive") : c > b && !e.hasClass("inactive") && e.addClass("inactive")
+                },
+                p = function() {
+                    var a = document.location.hash;
+                    ("#demo" === a || "#styles" === a) && setTimeout(function() {
+                        k()
+                    }, 1500)
+                },
+                q = function(b) {
+                    b.preventDefault();
+                    var c = a(this),
+                        e = c.attr("data-footnote-style"),
+                        f = a(".current-style"),
+                        g = a(".download-link");
+                    c.hasClass("active") || (c.blur(), c.siblings(".active").removeClass("active"), c.addClass("active"), a("iframe")[0].contentWindow.postMessage(e, "*"), g.attr("href", c.attr("data-download-link")), f.removeClass("active"), d.updateSetting("positionContent", "bottom" !== e), setTimeout(function() {
+                        c.attr("data-requires-no-position") ? f.find(".requires-bottom-option > .required-setting").text("false") : f.find(".requires-bottom-option > .required-setting").text("true"), f.addClass("active")
+                    }, 500))
+                };
+            m(), p(), a(window).on("resize", m), a(document).on("scroll", o), a(document).on("click", ".demo-back-button", l), a(document).on("click", ".page-nav-toggle", h), a(document).on("click", ".file-header-toggle-group h4", f), a(document).on("click", "a[href^=\\#]:not([href=\\#])", i), a(document).on("click", ".javascript-switch a", j), a(document).on("click", ".style-button", q), a("#nav-toggle").click(function() {
+                d.close()
+            }), a(".default-style:first").click()
+        })
+    }(jQuery);
+
